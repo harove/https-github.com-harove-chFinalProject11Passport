@@ -1,0 +1,12 @@
+<h1>{{titulo}}</h1>
+{{#if products}}
+<ul class="realtimeul">
+    {{#each products}}
+    <li>{{this.title}} {{this.code}}</li>
+    {{/each}}
+</ul>
+{{else}}
+<p>No hay productos para mostrar</p>
+{{/if}}
+<script src="/socket.io/socket.io.js"></script>
+<script src="/static/js/realtime.js"></script>

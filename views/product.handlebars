@@ -1,0 +1,14 @@
+<div class="container" id="payload-data" data-payload="{{payloadJs}}">
+    <h1 class="row justify-content-center">{{titulo}}</h1>
+    <ul>
+        {{#each payload as |value key|}}
+        <li class="row">
+            <div class="col border border-1">{{key}}</div>
+            <div class="col border border-1">{{value}}</div>
+        </li>
+        {{/each}}
+    </ul>
+    <button class="btn btn-primary">Add to cart</button>
+     {{!-- <script src="/static/js/httpClient.js" type="module"></script> --}}
+    <script src="/static/js/product.js" type="module"></script>
+</div>

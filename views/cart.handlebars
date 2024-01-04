@@ -1,0 +1,25 @@
+<div class="container">
+    <h1 class="row justify-content-center">{{titulo}}</h1>
+        <script>
+        {{log payload}}
+        </script>
+
+    <ul>
+        <li class="row">
+            <div class="col border border-1">Title</div>
+            <div class="col border border-1">Code</div> 
+            <div class="col border border-1">Price</div> 
+            <div class="col border border-1">Quantity</div> 
+        </li>
+        {{#each payload}}
+        <li class="row">
+            <div class="col border border-1">{{_id.title}}</div>
+            <div class="col border border-1">{{_id.code}}</div> 
+            <div class="col border border-1">{{_id.price}}</div> 
+            <div class="col border border-1">{{quantity}}</div> 
+        </li>
+        {{/each}}
+    </ul>    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/static/js/realtime.js"></script>
+</div>

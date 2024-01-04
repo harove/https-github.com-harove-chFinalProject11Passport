@@ -1,0 +1,42 @@
+<div class="container">
+    <h1 class="row justify-content-center">{{titulo}}</h1>
+        <script>
+        {{log payload}}
+        </script>
+    {{#if render}}
+    <ul>
+        {{#each payload.payload}}
+        <li class="row">
+            <div class="col border border-1">{{title}}</div>
+            <div class="col border border-1">{{code}}</div> 
+            <div class="col border border-1">{{price}}</div> 
+            <div class="col border border-1">
+              <a href="/products/{{_id}}">View</a>
+            </div> 
+        </li>
+        {{/each}}
+    </ul>
+    <div class="row pagination justify-content-center"> 
+        <div class="col-auto">
+            {{#if payload.hasPrevPage}}
+            <span>
+                <a class="text-decoration-none" href="{{payload.prevLink}}"> &#60; </a>
+            </span>
+            {{/if}}
+            <span>
+                page <a class="text-decoration-none" href="/products?page={{payload.page}}">{{payload.page}}</a></span> from  
+                <a class="class=text-decoration-none" href="/products?page={{payload.totalPages}}">{{payload.totalPages}}</a>
+            </span>
+            {{#if payload.hasNextPage}}
+            <span>
+                <a class="text-decoration-none" href="{{payload.nextLink}}"> &#62; </a>
+            </span>
+            {{/if}}
+        </div>
+    </div>
+    {{else}}
+    <p>No hay productos para mostrar</p>
+    {{/if}}
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/static/js/realtime.js"></script>
+</div>
