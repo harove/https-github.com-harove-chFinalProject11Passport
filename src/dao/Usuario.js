@@ -1,5 +1,6 @@
 import mongoose from "mongoose"
 import { randomUUID } from "node:crypto"
+import { hasheadasSonIguales } from '../utils/criptografia.js'
 
 const collection = 'usuarios'
 
@@ -11,7 +12,40 @@ const schema = new mongoose.Schema({
   apellido: { type: String, required: true },
 }, {
   strict: 'throw',
-  versionKey: false
+  versionKey: false,
+  statics: {
+    login: async function (email, password) {
+      let datosUsuario
+
+      if (email === 'adminCoder@coder.com' && password === 'adminCod3r123') {
+        datosUsuario = {
+          email: 'admin',
+          nombre: 'admin',
+          apellido: 'admin',
+          rol: 'admin'
+        }
+      } else {
+        const usuario = await mongoose.model(collection).findOne({ email }).lean()
+        console.log({usuario})
+
+        if (!usuario) {
+          throw new Error('login failed')
+        }
+
+        if (!hasheadasSonIguales(password, usuario['password'])) {
+          throw new Error('login failed because hashed are not equals')
+        }
+
+        datosUsuario = {
+          email: usuario['email'],
+          nombre: usuario['nombre'],
+          apellido: usuario['apellido'],
+          rol: 'usuario'
+        }
+      }
+      return datosUsuario
+    }
+  }
 })
 
 export const manager = mongoose.model(collection, schema)

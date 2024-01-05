@@ -9,6 +9,7 @@ import { productsManager, messagesManager } from './dao/index.js'
 import session from 'express-session'
 import { MONGODB_CNX_STR, SESSION_SECRET } from './config.js'
 import { sesiones } from './middlewares/sesiones.js'
+import { passportInitialize, passportSession } from './middlewares/autenticaciones.js'
 
 // import {  } from './midlewares/midlewares.js'
 
@@ -30,6 +31,9 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.static('./public'))
 app.use(express.static('./views'))
 app.use('/static', express.static('./static'))
+app.use(sesiones)
+app.use(passportInitialize, passportSession)
+
 
 const server = app.listen(8080, ()=> {console.log('conectado')})
 
@@ -44,7 +48,7 @@ app.use((req,res,next)=>{
     next()
 })
 
-app.use(sesiones)
+
 
 //Routers
 app.use('/api',apiRouter)

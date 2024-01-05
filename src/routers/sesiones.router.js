@@ -1,38 +1,23 @@
 import { Router } from 'express'
-
-import { usuariosManager } from '../dao/index.js'
-import { ADMIN_EMAIL } from '../config.js'
+import { soloLogueadosApi } from '../middlewares/autorizacion.js'
+import passport from 'passport'
 
 export const sesionesRouter = Router()
 
-sesionesRouter.post('/', async (req, res) => {
-  const usuario = await usuariosManager.findOne(req.body)
-  if (!usuario) {
-    return res
-      .status(401)
-      .json({
-        status: 'error',
-        message: 'login failed'
-      })
+sesionesRouter.post('/',
+  passport.authenticate('loginLocal', {
+    failWithError: true
+  }),
+  async (req, res, next) => {
+    res.status(201).json({ status: 'success', message: 'login success' })
+  },
+  (error, req, res, next) => {
+    res.status(401).json({ status: 'error', message: error.message })
   }
-  req.session['user'] = {
-    nombre: usuario.nombre,
-    apellido: usuario.apellido,
-    email: usuario.email,
-  }
+)
 
-  if (usuario.email === ADMIN_EMAIL) {
-    req.session['user'].rol = 'admin'
-  } else {
-    req.session['user'].rol = 'usuario'
-  }
-
-  res
-    .status(201)
-    .json({
-      status: 'success',
-      payload: req.session['user']
-    })
+sesionesRouter.get('/current', soloLogueadosApi, (req, res) => {
+  res.json(req.user)
 })
 
 sesionesRouter.delete('/current', async (req, res) => {
