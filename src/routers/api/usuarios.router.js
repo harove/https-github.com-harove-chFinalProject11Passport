@@ -19,8 +19,9 @@ usuariosRouter.post('/', async (req, res) => {
 })
 
 usuariosRouter.get('/current', soloLogueadosApi, async (req, res) => {
+  //ahora viene el email, ya no depende del _json
   // @ts-ignore
-  const usuario = await usuariosManager.findOne({ email: req['user']['_json'].email }, { password: 0 }).lean()
+  const usuario = await usuariosManager.findOne({ email: req.user.email }, { password: 0 }).lean()
   res.json({ status: 'success', payload: usuario })
 })
 

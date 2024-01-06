@@ -12,9 +12,23 @@ try {
     done(error)
 }
 }
-
+//Cuando nos logueamos con github
+//- si es la primera vez, le creamos una cuenta
+//- si ya existe, lo retornamos..
 async function verificationCallbackGithub(_,__,profile, done){
-    done(null,profile)
+    let user = await usuariosManager.findOne({email: profile._json.email})
+    if(!user){
+        let newUser = {
+          nombre: profile._json.name,
+          apellido: '',
+          email: profile._json.email,
+          password: profile._json.node_id
+        }
+        let result = await usuariosManager.create(newUser)
+        done(null, result)
+    }else{
+        done(null,user)
+    }    
 }
 
 
