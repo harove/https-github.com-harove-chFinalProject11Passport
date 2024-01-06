@@ -5,6 +5,5 @@ export function hashear(frase) {
 }
 
 export function hasheadasSonIguales(recibida, almacenada) {
-  console.log({recibida,almacenada})
   return compareSync(recibida, almacenada)
 }

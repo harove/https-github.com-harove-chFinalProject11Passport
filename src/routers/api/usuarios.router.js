@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import { usuariosManager } from '../dao/index.js'
-import { soloLogueadosApi } from '../middlewares/autorizacion.js'
-import { hashear } from '../utils/criptografia.js'
+import { usuariosManager } from '../../dao/index.js'
+import { soloLogueadosApi } from '../../middlewares/autorizacion.js'
+import { hashear } from '../../utils/criptografia.js'
 
 
 export const usuariosRouter = Router()
@@ -20,7 +20,7 @@ usuariosRouter.post('/', async (req, res) => {
 
 usuariosRouter.get('/current', soloLogueadosApi, async (req, res) => {
   // @ts-ignore
-  const usuario = await usuariosManager.findOne({ email: req['user'].email }, { password: 0 }).lean()
+  const usuario = await usuariosManager.findOne({ email: req['user']['_json'].email }, { password: 0 }).lean()
   res.json({ status: 'success', payload: usuario })
 })
 

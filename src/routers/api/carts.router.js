@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getController, postController, getByIdController, updateController, deleteController, addProductToCartController, deleteProductFromCartController, updateQuantityOfProductFromCartController, deleteAllProductsFromCartController } from '../controllers/rest/carts.controller.js';
+import { getController, postController, getByIdController, updateController, deleteController, addProductToCartController, deleteProductFromCartController, updateQuantityOfProductFromCartController, deleteAllProductsFromCartController } from '../../controllers/rest/carts.controller.js';
 export const cartsRouter = Router()
 cartsRouter.get('/:id', getByIdController)
 cartsRouter.get('/', getController)

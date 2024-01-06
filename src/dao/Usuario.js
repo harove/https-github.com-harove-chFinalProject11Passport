@@ -26,7 +26,6 @@ const schema = new mongoose.Schema({
         }
       } else {
         const usuario = await mongoose.model(collection).findOne({ email }).lean()
-        console.log({usuario})
 
         if (!usuario) {
           throw new Error('login failed')

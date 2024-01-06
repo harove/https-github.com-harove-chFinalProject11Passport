@@ -1,13 +1,16 @@
 import { Router } from 'express';
 // import { productsManager as manager } from '../dao/productsManager.js';
-import { productsManager as manager } from '../dao/index.js';
-import { getByIdController, getController } from '../controllers/web/products.controller.js';
+import { productsManager as manager } from '../../dao/index.js';
 import { cartsWebRouter } from './carts.web.router.js';
-import { onlyLogueadosWeb } from '../middlewares/autorizacion.js';
+import { onlyLogueadosWeb } from '../../middlewares/autorizacion.js';
+import { sesionesRouter } from './sesiones.router.js';
+import { productsRouter } from './products.router.js';
 
 export const webRouter = Router();
-webRouter.get('/products', getController);
-webRouter.get('/products/:id', getByIdController);
+
+webRouter.use(sesionesRouter)
+webRouter.use(productsRouter)
+
 
 webRouter.get('/realtimeproducts', async (req, res) => {
     // const products = await manager.findAll();
@@ -37,6 +40,7 @@ res.render('login.handlebars', { pageTitle: 'Login' })
 })
 
 webRouter.get('/profile', onlyLogueadosWeb, (req, res) => {
+  console.log('logeado web profile')
     res.render('profile.handlebars', {
       pageTitle: 'Perfil',
       ...req.user

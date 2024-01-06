@@ -57,7 +57,6 @@ export async function updateController(req, res) {
         // const pojos = await manager.update(id,fields)
         // res.json(pojos)
         const actualizado = await manager.findByIdAndUpdate(id, {$set: fields}, { new: true})
-        console.log({actualizado})
         if (!actualizado){
             res.status(404).json({message: 'usuario no encontrado'})
         }

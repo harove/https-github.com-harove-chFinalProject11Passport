@@ -1,7 +1,7 @@
 import express from 'express'
-import { apiRouter } from './routers/api.router.js'
+import { apiRouter } from './routers/api/api.router.js'
 import handlebars from 'express-handlebars'
-import { webRouter } from './routers/web.Router.js'
+import { webRouter } from './routers/web/web.Router.js'
 import {Server} from 'socket.io'
 import connectMongo from 'connect-mongo'
 // import { productsManager } from './dao/productsManager.js'
@@ -62,8 +62,6 @@ app.use((req, res, next) => {
 
 
 webSocketServer.on('connection', async (socket) => {
-    console.log({socket:socket.id})
-    console.log({user: socket.handshake.auth.username})
     socket.broadcast.emit('nuevoUsuario', socket.handshake.auth.username)
 
     socket.emit('mensajes', await messagesManager.find().lean())

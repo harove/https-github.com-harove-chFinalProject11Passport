@@ -42,7 +42,6 @@ function iniciarChat(username){
     })
 
     socket.on('nuevoUsuario', nuevoUsuario=>{
-        console.log('nuevo usuario' + nuevoUsuario)
         Swal.fire({
             text: 'nuevo usuario' + nuevoUsuario,
             toast: true,

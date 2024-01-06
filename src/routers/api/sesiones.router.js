@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { soloLogueadosApi } from '../middlewares/autorizacion.js'
+import { soloLogueadosApi } from '../../middlewares/autorizacion.js'
 import passport from 'passport'
 
 export const sesionesRouter = Router()
