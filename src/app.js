@@ -34,8 +34,8 @@ app.use('/static', express.static('./static'))
 app.use(sesiones)
 app.use(passportInitialize, passportSession)
 
-
-const server = app.listen(8080, ()=> {console.log('conectado')})
+//Para saber en que puerto esta funcionando.
+const server = app.listen(8080, ()=> {console.log('Server ON: 8080')})
 
 const webSocketServer = new Server(server)
 

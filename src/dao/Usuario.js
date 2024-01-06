@@ -9,7 +9,7 @@ const schema = new mongoose.Schema({
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   nombre: { type: String, required: true },
-  apellido: { type: String, required: true },
+  apellido: { type: String, required: false }, // En github puede no venir
 }, {
   strict: 'throw',
   versionKey: false,
@@ -46,5 +46,13 @@ const schema = new mongoose.Schema({
     }
   }
 })
+
+//Con esto eliminamos el password para que no se vea
+//cuando se hace toObject
+schema.options.toObject ={
+  transform: function (doc, ret){
+    delete ret.password
+  }
+}
 
 export const manager = mongoose.model(collection, schema)
