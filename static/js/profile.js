@@ -26,7 +26,6 @@ window.addEventListener('load', async ()=>{
   }
 
   const result = await response.json()
-  console.log({result})
   const usuario = result.payload
 
   spans[0].innerHTML = usuario.nombre
